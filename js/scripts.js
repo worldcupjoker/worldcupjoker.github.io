@@ -23,4 +23,9 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     }
 
+    const hello = document.getElementById("tedButton");
+    hello.addEventListener("click", function() {
+        alert("Ted says hi!");
+    });
+
 });
