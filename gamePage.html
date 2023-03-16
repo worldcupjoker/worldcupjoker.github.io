@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Risk Assistant</title>
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <select id="gameMode" enabled>
+            <option value=""></option>
+            <option value="normal">Normal</option>
+            <option value="increase">Increase</option>
+        </select>
+        <div class="labels-row">
+            <label>    </label>
+            <label>Name</label>
+            <label>Troops</label>
+            <label>Territory</label>
+            <label>Trade in</label>
+            <label>Reinforcements in the next round</label><br>
+        </div>
+        <div class="player-stats">
+            <label>Player1</label>
+            <input id="name1" enabled>
+            <input id="troops1" enabled>
+            <input id="territory1" enabled>
+            <select id="tradeIn1" enabled>
+                <option value=0></option>
+                <option value="infantry">infantry</option>
+                <option value="troops">troops</option>
+                <option value="armies">armies</option>
+            </select>
+            <label id="reinforcements1" enabled><br>
+        </div>
+        <label type="s">name</label>
+        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+        <label for="vehicle1"> I have a bike</label><br>
+        <input type="text" id="display" enabled><br>
+        <button onclick="addToDisplay('1')">1</button>
+        <button onclick="addToDisplay('2')">2</button>
+        <button onclick="addToDisplay('3')">3</button>
+        <button onclick="addToDisplay('+')">+</button><br>
+        <button onclick="addToDisplay('4')">4</button>
+        <button onclick="addToDisplay('5')">5</button>
+        <button onclick="addToDisplay('6')">6</button>
+        <button onclick="addToDisplay('-')">-</button><br>
+        <button onclick="addToDisplay('7')">7</button>
+        <button onclick="addToDisplay('8')">8</button>
+        <button onclick="addToDisplay('9')">9</button>
+        <button onclick="addToDisplay('*')">*</button><br>
+        <button onclick="addToDisplay('0')">0</button>
+        <button onclick="addToDisplay('.')">.</button>
+        <button onclick="calculate()">=</button>
+        <button onclick="addToDisplay('/')">/</button><br>
+        <button onclick="clearDisplay()">Clear</button>
+
+
+
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
