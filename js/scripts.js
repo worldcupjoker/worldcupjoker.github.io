@@ -30,50 +30,89 @@ window.addEventListener('DOMContentLoaded', event => {
 
 });
 
+// Track trade in times
+var tradeInTimes = 0;
+const outSelect1 = document.getElementById("tradeIn1");
+// won't allow trade ins once it is selected
+outSelect1.addEventListener("change", function() {
+    const selectedOption = outSelect1.value;
+    if (gameMode.value === "increase") {
+        if (selectedOption != 0) {
+            outSelect1.options[1].disabled = true;
+            tradeInTimes += 1;
+            alert(tradeInTimes);
+        } else {
+            outSelect1.options[1].disabled = false;
+            tradeInTimes -= 1;
+            alert(tradeInTimes);
+        }
+    } else {
+        if (selectedOption != 0) {
+            outSelect1.options[1].disabled = true;
+            outSelect1.options[2].disabled = true;
+            outSelect1.options[3].disabled = true;
+            outSelect1.options[4].disabled = true;
+        } else {
+            outSelect1.options[1].disabled = false;
+            outSelect1.options[2].disabled = false;
+            outSelect1.options[3].disabled = false;
+            outSelect1.options[4].disabled = false;
+        }
+    }
+});
 
 // change game mode
 const gameMode = document.getElementById("gameMode");
-const outSelect = document.getElementById("tradeIn1");
 
 gameMode.addEventListener("change", function() {
-    const selectedOption = gameMode.value;
+    changeTradeIn(outSelect1);
+});
 
+function changeTradeIn(outSelect) {
+    const selectedOption = gameMode.value;
+    // const outSelect = document.getElementById(tradeInID);
+    
     // clear the current selection
-    outSelect.innerHTML=""
+    outSelect.options.length = 0;
 
     // Modify options of outSelect based on selectedOption
     if (selectedOption === "increase") {
-        const option1 = document.createElement("option");
+        var option1 = document.createElement("option");
         option1.value = 0;
-        option1.text = "";
+        option1.text = "Let me rethink.";
         outSelect.add(option1);
 
-        const option2 = document.createElement("option");
-        option2.value = "";
+        var option2 = document.createElement("option");
+        option2.value = 50;
         option2.text = "+50";
         outSelect.add(option2);
     } else {
-        const option1 = document.createElement("option");
+        var option1 = document.createElement("option");
         option1.value = 0;
-        option1.text = "";
+        option1.text = "Let me rethink.";
         outSelect.add(option1);
 
-        const option2 = document.createElement("option");
-        option2.value = "";
-        option2.text = "Infantry";
+        var option2 = document.createElement("option");
+        option2.value = 4;
+        option2.text = "Infantry x 3, +4";
         outSelect.add(option2);
 
-        const option3 = document.createElement("option");
-        option3.value = "";
-        option3.text = "Troops";
+        var option3 = document.createElement("option");
+        option3.value = 6;
+        option3.text = "Calvary x 3, +6";
         outSelect.add(option3);
 
-        const option4 = document.createElement("option");
-        option4.value = "";
-        option4.text = "Armies";
+        var option4 = document.createElement("option");
+        option4.value = 8;
+        option4.text = "Artillery x 3, +8";
+        outSelect.add(option4);
+
+        var option4 = document.createElement("option");
+        option4.value = 10;
+        option4.text = "A run of 3, +10";
         outSelect.add(option4);
     }
-});
+}
 
 
 function addToDisplay(value) {
