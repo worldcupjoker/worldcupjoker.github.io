@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Horizontal Player Box</title>
+	<style>
+		.player-box {
+			display: inline-block;
+			margin: 10px;
+			padding: 10px;
+			border: 1px solid #ccc;
+			background-color: #f9f9f9;
+			text-align: center;
+		}
+
+		.text-box {
+			display: inline-block;
+			margin: 10px;
+			padding: 10px;
+			background-color: #fff;
+			border: 1px solid #ccc;
+			text-align: left;
+		}
+
+		.text-box label {
+			display: inline-block;
+			width: 50px;
+			margin-right: 10px;
+			text-align: right;
+		}
+
+		.text-box input[type="text"] {
+			display: inline-block;
+			width: 150px;
+		}
+	</style>
+</head>
+<body>
+	<div class="player-box">
+		<h2>Player</h2>
+		<div class="text-box">
+			<label>Name:</label>
+			<input type="text" name="player-name">
+		</div>
+		<div class="text-box">
+			<label>Score:</label>
+			<input type="text" name="player-score">
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Player Box in a Box</title>
+	<style>
+		.player-box {
+			border: 1px solid black;
+			padding: 10px;
+			display: inline-block;
+		}
+
+		.text-box {
+			margin-top: 10px;
+		}
+
+		label {
+			display: inline-block;
+			width: 100px;
+		}
+
+		input[type="text"] {
+			width: 200px;
+		}
+	</style>
+</head>
+<body>
+	<button onclick="addPlayerBox()">Add Player</button>
+	<div id="container"></div>
+
+	<script>
+		function addPlayerBox() {
+			var container = document.getElementById("container");
+
+			// Create the player box element
+			var playerBox = document.createElement("div");
+			playerBox.classList.add("player-box");
+
+			// Create the player name text box
+			var nameBox = document.createElement("div");
+			nameBox.classList.add("text-box");
+			var nameLabel = document.createElement("label");
+			nameLabel.innerText = "Name:";
+			var nameInput = document.createElement("input");
+			nameInput.type = "text";
+			nameInput.name = "player-name";
+			nameBox.appendChild(nameLabel);
+			nameBox.appendChild(nameInput);
+
+			// Create the player score text box
+			var scoreBox = document.createElement("div");
+			scoreBox.classList.add("text-box");
+			var scoreLabel = document.createElement("label");
+			scoreLabel.innerText = "Score:";
+			var scoreInput = document.createElement("input");
+			scoreInput.type = "text";
+			scoreInput.name = "player-score";
+			scoreBox.appendChild(scoreLabel);
+			scoreBox.appendChild(scoreInput);
+
+			// Add the text boxes to the player box
+			playerBox.appendChild(nameBox);
+			playerBox.appendChild(scoreBox);
+
+			// Add the player box to the container
+			container.appendChild(playerBox);
+		}
+	</script>
+</body>
+</html>
