@@ -31,17 +31,16 @@ Game<!DOCTYPE html>
                 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                     <div class="container-fluid">
                         <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button>
-                        <button class="btn btn-primary" id="tedButton">Ted's Button</Button></button>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                                 <li class="nav-item active"><a class="nav-link" href="#!">Home</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Game mode</a>
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#!">Game mode 1</a>
-                                        <a class="dropdown-item" href="#!">Game mode 2</a>
+                                        <a class="dropdown-item" href="#!">Fixed</a>
+                                        <a class="dropdown-item" href="#!">Progressive</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#!">Something else here</a>
                                     </div>
@@ -56,28 +55,52 @@ Game<!DOCTYPE html>
                     <p>
                         Here is the Risk online tracker! We are aiming to allow players of the game to keep track of different statistics in the game for a better playing experience. Start by pressing the "Add Player" button below, or selecting your game mode in the top right corner!
                     </p>
+
+                    <!-- Insert 6 players here -->
                    <div class="player-box">
-		                <h2>Player</h2>
+		                <h2>Player 1</h2>
 		                <div class="text-box">
                             <label>Name:</label>
-                            <input type="text" name="player-name">
+                            <input type="text" id="player1Name" enabled>
 		                </div>
                         <div class="text-box">
                             <label>Troops:</label>
-                            <input type="text" name="player-troops">
+                            <input type="number" id="player1Troops" enabled>
                         </div>
                         <div class="text-box">
                             <label>Territory:</label>
-                            <input type="text" name="player-territory">
+                            <input type="number" id="playe1Territory" enabled oninput="displayText()">
                         </div>
                         <div class="text-box">
-                            <label>Trade In:</label>
-                            <input type="text" name="player-trade">
+                            <label>Matching Cards:</label>
+                            <select id="player1TradeIn" enabled>
+                                <option value=0>Let me rethink.</option>
+                                <option value=4>Infantry, +4</option>
+                                <option value=6>Calvary, +6</option>
+                                <option value=8>Artillery, +8</option>
+                                <option value=10>All Three, +10</option>
+                            </select>
+                        </div>
+                        <div class="text-box">
+                            <label>Continents:</label>
+                            <input type="checkbox" id="player1Aus" value=2>
+                            <label>Australia: +2</label>
+                            <input type="checkbox" id="player1South" value="banana">
+                            <label>South America: +2</label>
+                            <input type="checkbox" id="player1Aus" value="orange">
+                            <label>Orange</label>
+                            <input type="checkbox" id="player1Aus" value="grape">
+                            <label>Grape</label>
+                        </div>
+                        <div class="text-box">
+                            <label>Reinforcements Next Round: </label>
+                            <label type="text" id="player1Reinforcements"></label>
                         </div>
 	                </div>
                 </div>
             </div>
         </div>
+        
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->

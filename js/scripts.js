@@ -129,14 +129,26 @@ function clearDisplay() {
     document.getElementById('display').value = '';
 }
 
-const numberInput = document.getElementById("number");
-const increaseButton = document.getElementById("increase");
-const decreaseButton = document.getElementById("decrease");
-  
-increaseButton.addEventListener("click", () => {
-    numberInput.value = parseInt(numberInput.value) + 1;
+function displayText() {
+    var inputText = document.getElementById("playe1Territory").value;
+    document.getElementById("player1Reinforcements").textContent = "+ " + inputText;
+}
+
+var selectElement = document.getElementById("player1Continents");
+var selectedFruits = [];
+
+selectElement.addEventListener("change", function() {
+    selectedFruits = Array.from(selectElement.selectedOptions, option => option.value);
+    console.log(selectedFruits);
 });
-  
-decreaseButton.addEventListener("click", () => {
-    numberInput.value = parseInt(numberInput.value) - 1;
-});
+
+function getSelectedFruits() {
+    var selectedFruits = document.querySelectorAll('input[name="fruit"]:checked');
+    var selectedFruitValues = [];
+
+    for (var i = 0; i < selectedFruits.length; i++) {
+        selectedFruitValues.push(selectedFruits[i].value);
+    }
+
+    console.log(selectedFruitValues);
+}
