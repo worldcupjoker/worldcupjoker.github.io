@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Checkbox Example</title>
+</head>
+<body>
+	<label for="fruits">Select Fruits:</label>
+	<input type="checkbox" id="apple" name="fruit" value="apple">
+	<label for="apple">Apple</label>
+	<input type="checkbox" id="banana" name="fruit" value="banana">
+	<label for="banana">Banana</label>
+	<input type="checkbox" id="orange" name="fruit" value="orange">
+	<label for="orange">Orange</label>
+	<input type="checkbox" id="grape" name="fruit" value="grape">
+	<label for="grape">Grape</label>
+
+	<button onclick="getSelectedFruits()">Get Selected Fruits</button>
+
+	<script>
+		function getSelectedFruits() {
+			var selectedFruits = document.querySelectorAll('input[name="fruit"]:checked');
+			var selectedFruitValues = [];
+
+			for (var i = 0; i < selectedFruits.length; i++) {
+				selectedFruitValues.push(selectedFruits[i].value);
+			}
+
+			console.log(selectedFruitValues);
+		}
+	</script>
+</body>
+</html>
