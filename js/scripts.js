@@ -128,3 +128,15 @@ function calculate() {
 function clearDisplay() {
     document.getElementById('display').value = '';
 }
+
+const numberInput = document.getElementById("number");
+const increaseButton = document.getElementById("increase");
+const decreaseButton = document.getElementById("decrease");
+  
+increaseButton.addEventListener("click", () => {
+    numberInput.value = parseInt(numberInput.value) + 1;
+});
+  
+decreaseButton.addEventListener("click", () => {
+    numberInput.value = parseInt(numberInput.value) - 1;
+});
