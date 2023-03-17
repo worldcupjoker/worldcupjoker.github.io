@@ -36,7 +36,7 @@ const outSelect1 = document.getElementById("tradeIn1");
 // won't allow trade ins once it is selected
 outSelect1.addEventListener("change", function() {
     const selectedOption = outSelect1.value;
-    if (gameMode.value === "increase") {
+    if (gameMode.value === "progressive") {
         if (selectedOption != 0) {
             outSelect1.options[1].disabled = true;
             tradeInTimes += 1;
@@ -76,7 +76,7 @@ function changeTradeIn(outSelect) {
     outSelect.options.length = 0;
 
     // Modify options of outSelect based on selectedOption
-    if (selectedOption === "increase") {
+    if (selectedOption === "progressive") {
         var option1 = document.createElement("option");
         option1.value = 0;
         option1.text = "Let me rethink.";
@@ -94,22 +94,22 @@ function changeTradeIn(outSelect) {
 
         var option2 = document.createElement("option");
         option2.value = 4;
-        option2.text = "Infantry x 3, +4";
+        option2.text = "Infantry, +4";
         outSelect.add(option2);
 
         var option3 = document.createElement("option");
         option3.value = 6;
-        option3.text = "Calvary x 3, +6";
+        option3.text = "Calvary, +6";
         outSelect.add(option3);
 
         var option4 = document.createElement("option");
         option4.value = 8;
-        option4.text = "Artillery x 3, +8";
+        option4.text = "Artillery, +8";
         outSelect.add(option4);
 
         var option4 = document.createElement("option");
         option4.value = 10;
-        option4.text = "A run of 3, +10";
+        option4.text = "All Three, +10";
         outSelect.add(option4);
     }
 }
