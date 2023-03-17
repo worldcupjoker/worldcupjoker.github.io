@@ -69,7 +69,7 @@
                         </div>
                         <div class="text-box">
                             <label>Territory:</label>
-                            <input type="number" id="playe1Territory" enabled oninput="displayText()">
+                            <input type="number" id="playe1Territory" enabled oninput="displayText1()">
                         </div>
                         <div class="text-box">
                             <label>Matching Cards:</label>
@@ -83,14 +83,18 @@
                         </div>
                         <div class="text-box">
                             <label>Continents:</label>
-                            <input type="checkbox" id="player1Aus" value=2>
+                            <input type="checkbox" id="player1Aus" value=2 oninput="displayText1()">
                             <label>Australia: +2</label>
-                            <input type="checkbox" id="player1South" value="banana">
+                            <input type="checkbox" id="player1SouthAmerica" value=2 oninput="displayText1()">
                             <label>South America: +2</label>
-                            <input type="checkbox" id="player1Aus" value="orange">
-                            <label>Orange</label>
-                            <input type="checkbox" id="player1Aus" value="grape">
-                            <label>Grape</label>
+                            <input type="checkbox" id="player1Africa" value=3 oninput="displayText1()">
+                            <label>Africa: +3</label>
+                            <input type="checkbox" id="player1Europe" value=5 oninput="displayText1()">
+                            <label>Europe: +5</label>
+                            <input type="checkbox" id="player1NorthAmerica" value=5 oninput="displayText1()">
+                            <label>North America: +5</label>
+                            <input type="checkbox" id="player1Asia" value=7 oninput="displayText1()">
+                            <label>Asia: +7</label>
                         </div>
                         <div class="text-box">
                             <label>Reinforcements Next Round: </label>

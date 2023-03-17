@@ -129,26 +129,42 @@ function clearDisplay() {
     document.getElementById('display').value = '';
 }
 
-function displayText() {
-    var inputText = document.getElementById("playe1Territory").value;
-    document.getElementById("player1Reinforcements").textContent = "+ " + inputText;
+function displayText1() {
+    var inputText = parseInt(document.getElementById("playe1Territory").value);
+    inputText = getTerritoryBonus(inputText);
+    document.getElementById("player1Reinforcements").textContent = inputText + calc1();
 }
 
-var selectElement = document.getElementById("player1Continents");
-var selectedFruits = [];
+function getTerritoryBonus(num) {
+    if (num < 12) return 3;
+    return Math.floor(num / 3);
+}
 
-selectElement.addEventListener("change", function() {
-    selectedFruits = Array.from(selectElement.selectedOptions, option => option.value);
-    console.log(selectedFruits);
-});
-
-function getSelectedFruits() {
-    var selectedFruits = document.querySelectorAll('input[name="fruit"]:checked');
-    var selectedFruitValues = [];
-
-    for (var i = 0; i < selectedFruits.length; i++) {
-        selectedFruitValues.push(selectedFruits[i].value);
+function calc1() {
+    var result = 0;
+    var box1 = document.getElementById("player1Aus");
+    var box2 = document.getElementById("player1SouthAmerica");
+    var box3 = document.getElementById("player1Africa");
+    var box4 = document.getElementById("player1Europe");
+    var box5 = document.getElementById("player1NorthAmerica");
+    var box6 = document.getElementById("player1Asia");
+    if (box1.checked) {
+        result += parseInt(box1.value);
     }
-
-    console.log(selectedFruitValues);
+    if (box2.checked) {
+        result += parseInt(box2.value);
+    }
+    if (box3.checked) {
+        result += parseInt(box3.value);
+    }
+    if (box4.checked) {
+        result += parseInt(box4.value);
+    }
+    if (box5.checked) {
+        result += parseInt(box5.value);
+    }
+    if (box6.checked) {
+        result += parseInt(box6.value);
+    }
+    return result;
 }
