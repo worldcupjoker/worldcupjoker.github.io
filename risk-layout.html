@@ -13,18 +13,6 @@
     </head>
     <body>
         <div class="d-flex" id="wrapper">
-            <!-- Sidebar-->
-            <div class="border-end bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading border-bottom bg-light">O-Newbie-Won</div>
-                <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">About</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Risk Assistant</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Overview</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
-                </div>
-            </div>
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
                 <!-- Top navigation-->
@@ -51,8 +39,10 @@
                 </nav>
                 <!-- Page content-->
                 <div class="container-fluid">
-                    <button class="btn-primary" id="nextRound">Next Round</button>
-		            <button class="btn-primary" id="newGame">New Game</button>
+                    <label>Round:</label>
+                    <label type="text" id="roundTracker">1</label>
+                    <button class="btn-primary" id="nextRound" onclick="nextRound()">Next Round</button>
+		            <button class="btn-primary" id="newGame" onclick="newGame()">New Game</button>
                     <label>Game Mode:</label>
                     <select class="btn-primary" id="gameMode" enabled onchange="changeGameMode()">
                         <option value="fixed">Fixed</option>

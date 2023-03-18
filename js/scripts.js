@@ -1,6 +1,7 @@
 /*!
+* Copyright 2013-2024 Ted Zhan Matt Chan
+* Some of the source code are from those links below.
 * Start Bootstrap - Simple Sidebar v6.0.5 (https://startbootstrap.com/template/simple-sidebar)
-* Copyright 2013-2022 Start Bootstrap
 * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-simple-sidebar/blob/master/LICENSE)
 */
 // 
@@ -24,8 +25,8 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 });
 
-// Track trade in times
 var tradeInTimes = 0;
+var roundNumber = 1;
 
 var tradeInList = ["player1TradeIn", "player2TradeIn", "player3TradeIn", "player4TradeIn", "player5TradeIn", "player6TradeIn"]; // Matching cards box
 var tradeInCheck = [false, false, false, false, false, false];
@@ -33,9 +34,9 @@ var playerTradeInTroops = [0, 0, 0, 0, 0, 0];
 var playerTroopsList = ["player1Troops", "player2Troops", "player3Troops", "player4Troops", "player5Troops", "player6Troops"];
 var playerContinentList = ["player1Continents", "player2Continents", "player3Continents", "player4Continents", "player5Continents", "player6Continents"];
 var playerTerritoryList = ["player1Territory", "player2Territory", "player3Territory", "player4Territory", "player5Territory", "player6Territory"];
-var playerTerritoryBonus = [0, 0, 0, 0, 0, 0];
 var playerReinforcementsList = ["player1Reinforcements", "player2Reinforcements", "player3Reinforcements", "player4Reinforcements", "player5Reinforcements", "player6Reinforcements"];
 var playerReinforcements = [0, 0, 0, 0, 0, 0];
+var playerNameList = ["player1Name", "player2Name", "player3Name", "player4Name", "player5Name", "player6Name"];
 
 // change game mode
 const gameMode = document.getElementById("gameMode");
@@ -59,6 +60,31 @@ function changeGameMode() {
             
             option2.value = 4;
             option2.text = "+" + option2.value;
+
+            if (tradeInTimes == 0) {
+                option2.value = 4;
+                option2.text = "+" + option2.value;
+            }
+            if (tradeInTimes == 1) {
+                option2.value = 6;
+                option2.text = "+" + option2.value;
+            }
+            if (tradeInTimes == 2) {
+                option2.value = 8;
+                option2.text = "+" + option2.value;
+            }
+            if (tradeInTimes == 3) {
+                option2.value = 10;
+                option2.text = "+" + option2.value;
+            }
+            if (tradeInTimes == 4) {
+                option2.value = 12;
+                option2.text = "+" + option2.value;
+            }
+            if (tradeInTimes >= 5) {
+                option2.value = 5 * (tradeInTimes - 2);
+                option2.text = "+" + option2.value;
+            }
             outSelect.add(option2);
         } else {
             var option1 = document.createElement("option");
@@ -144,7 +170,7 @@ function getContinentBonus(playerContinents) {
     return result;
 }
 
-// won't allow trade ins once it is selected
+// won't allow trade-ins once it is selected
 function lockTradeIn() {
     for (var i = 0; i < tradeInList.length; i++) {
         var outSelect = document.getElementById(tradeInList[i]);
@@ -236,4 +262,47 @@ function refreshProgressiveTradeIn() {
             }
         }
     }
+}
+
+function nextRound() {
+    for (var i = 0; i < playerTroopsList.length; i++) {
+        document.getElementById(playerTroopsList[i]).value = parseInt(playerReinforcements[i]) + parseInt(document.getElementById(playerTroopsList[i]).value);
+    }
+    roundNumber++;
+    document.getElementById("roundTracker").textContent = roundNumber;
+    playerTradeInTroops = [0, 0, 0, 0, 0, 0];
+    tradeInCheck = [false, false, false, false, false, false];
+    changeGameMode();
+}
+
+function newGame() {
+    roundNumber = 0;
+    tradeInTimes = 0;
+    document.getElementById("roundTracker").textContent = roundNumber;
+    
+    tradeInCheck = [false, false, false, false, false, false];
+    playerTradeInTroops = [0, 0, 0, 0, 0, 0];
+
+    //clear name boxes, troop, territories, continents
+    for (var i = 0; i < playerTroopsList.length; i++) {
+        document.getElementById(playerTroopsList[i]).value = NaN;
+        uncheckContinents(playerContinentList[i]);
+        document.getElementById(playerTerritoryList[i]).value = NaN;
+        document.getElementById(playerNameList[i]).value = "";
+    }
+
+    playerReinforcements = [0, 0, 0, 0, 0, 0];
+    displayText(); // reset reinforcement list
+    changeGameMode(); // Reset trade in list
+}
+
+function uncheckContinents(playerContinents) {
+    const checkboxes = document.querySelectorAll("input[name=" + playerContinents + "]");
+
+    checkboxes[0].checked = false;
+    checkboxes[1].checked = false;
+    checkboxes[2].checked = false;
+    checkboxes[3].checked = false;
+    checkboxes[4].checked = false;
+    checkboxes[5].checked = false;
 }
