@@ -23,49 +23,31 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     }
 
-    const hello = document.getElementById("tedButton");
-    hello.addEventListener("click", function() {
-        alert("Ted says hi!");
-    });
-
+    for (var i = 0; i < tradeInList.length; i++) {
+        lockTradeIn(tradeInList[i], i + 1);
+    }
 });
 
 // Track trade in times
 var tradeInTimes = 0;
-const outSelect1 = document.getElementById("tradeIn1");
-// won't allow trade ins once it is selected
-outSelect1.addEventListener("change", function() {
-    const selectedOption = outSelect1.value;
-    if (gameMode.value === "progressive") {
-        if (selectedOption != 0) {
-            outSelect1.options[1].disabled = true;
-            tradeInTimes += 1;
-            alert(tradeInTimes);
-        } else {
-            outSelect1.options[1].disabled = false;
-            tradeInTimes -= 1;
-            alert(tradeInTimes);
-        }
-    } else {
-        if (selectedOption != 0) {
-            outSelect1.options[1].disabled = true;
-            outSelect1.options[2].disabled = true;
-            outSelect1.options[3].disabled = true;
-            outSelect1.options[4].disabled = true;
-        } else {
-            outSelect1.options[1].disabled = false;
-            outSelect1.options[2].disabled = false;
-            outSelect1.options[3].disabled = false;
-            outSelect1.options[4].disabled = false;
-        }
-    }
-});
 
 // change game mode
 const gameMode = document.getElementById("gameMode");
-
+const outSelect1 = document.getElementById("player1TradeIn");
+const outSelect2 = document.getElementById("player2TradeIn");
+const outSelect3 = document.getElementById("player3TradeIn");
+const outSelect4 = document.getElementById("player4TradeIn");
+const outSelect5 = document.getElementById("player5TradeIn");
+const outSelect6 = document.getElementById("player6TradeIn");
+var tradeInList = [outSelect1, outSelect2, outSelect3, outSelect4, outSelect5, outSelect6];
+var playerList = [1, 2, 3, 4, 5, 6];
 gameMode.addEventListener("change", function() {
     changeTradeIn(outSelect1);
+    changeTradeIn(outSelect2);
+    changeTradeIn(outSelect3);
+    changeTradeIn(outSelect4);
+    changeTradeIn(outSelect5);
+    changeTradeIn(outSelect6);
 });
 
 function changeTradeIn(outSelect) {
@@ -83,8 +65,9 @@ function changeTradeIn(outSelect) {
         outSelect.add(option1);
 
         var option2 = document.createElement("option");
-        option2.value = 50;
-        option2.text = "+50";
+        
+        option2.value = 4;
+        option2.text = "+" + option2.value;
         outSelect.add(option2);
     } else {
         var option1 = document.createElement("option");
@@ -130,7 +113,8 @@ function clearDisplay() {
 }
 
 function displayText1() {
-    var inputText = parseInt(document.getElementById("playe1Territory").value);
+    var inputText = parseInt(document.getElementById("player1Territory").value);
+    if (isNaN(inputText)) inputText = 0;
     inputText = getTerritoryBonus(inputText);
     document.getElementById("player1Reinforcements").textContent = inputText + calc1();
 }
@@ -167,4 +151,80 @@ function calc1() {
         result += parseInt(box6.value);
     }
     return result;
+}
+
+// won't allow trade ins once it is selected
+function lockTradeIn(outSelect, player) {
+    outSelect.addEventListener("change", function() {
+        const selectedOption = outSelect.value;
+        if (gameMode.value === "progressive") {
+            if (selectedOption != 0) {
+                tradeInTimes += 1;
+                refreshProgressiveCards(playerList, player);
+                outSelect.options[1].disabled = true;
+            } else {
+                tradeInTimes -= 1;
+                playerList.push(player);
+                refreshProgressiveCards(playerList);
+                outSelect.options[1].disabled = false;
+            }
+        } else {
+            if (selectedOption != 0) {
+                outSelect.options[1].disabled = true;
+                outSelect.options[2].disabled = true;
+                outSelect.options[3].disabled = true;
+                outSelect.options[4].disabled = true;
+            } else {
+                outSelect.options[1].disabled = false;
+                outSelect.options[2].disabled = false;
+                outSelect.options[3].disabled = false;
+                outSelect.options[4].disabled = false;
+            }
+        }
+    });
+}
+
+function refreshProgressiveCards(aList, player) {
+    var index = aList.indexOf(player);
+
+    for (var i = 0; i < aList.length; i++) {
+        if (aList[i] != player) {
+            alert(aList);
+            refreshProgressiveTradeIn(tradeInList[aList[i] - 1]);
+        }
+    }
+
+    // update the list here.
+    if (index !== -1) {
+        aList.splice(index, 1);
+    }
+
+}
+
+function refreshProgressiveTradeIn(outSelect) {
+    // need to redo at your turn. otherwise there is a bug.
+    if (tradeInTimes == 0) {
+        outSelect.options[1].value = 4;
+        outSelect.options[1].text = "+4";
+    }
+    if (tradeInTimes == 1) {
+        outSelect.options[1].value = 6;
+        outSelect.options[1].text = "+6";
+    }
+    if (tradeInTimes == 2) {
+        outSelect.options[1].value = 8;
+        outSelect.options[1].text = "+8";
+    }
+    if (tradeInTimes == 3) {
+        outSelect.options[1].value = 10;
+        outSelect.options[1].text = "+10";
+    }
+    if (tradeInTimes == 4) {
+        outSelect.options[1].value = 12;
+        outSelect.options[1].text = "+12";
+    }
+    if (tradeInTimes >= 5) {
+        outSelect.options[1].value = 5 * (tradeInTimes - 2);
+        outSelect.options[1].text = "+" + outSelect.options[1].value;
+    }
 }
