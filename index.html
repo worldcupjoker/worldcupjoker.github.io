@@ -7,7 +7,7 @@
         <meta name="author" content="" />
         <title>WorldCupJoker's Game Hub</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/hourglass.png" />
+        <link rel="icon" type="image/png" href="assets/hourglass.png" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
     </head>
@@ -39,20 +39,21 @@
                 </nav>
                 <!-- Page content-->
                 <div class="container-fluid">
-                    <label>Round:</label>
-                    <label type="text" id="roundTracker">1</label>
-                    <button class="btn-primary" id="nextRound" onclick="nextRound()">Next Round</button>
-		            <button class="btn-primary" id="newGame" onclick="newGame()">New Game</button>
-                    <label>Game Mode:</label>
-                    <select class="btn-primary" id="gameMode" enabled onchange="changeGameMode()">
-                        <option value="fixed">Fixed</option>
-                        <option value="progressive">Progressive</option>
-                    </select>
                     <h1 class="mt-4">Risk Online Tracker</h1>
                     <p>
                         Here is the Risk online tracker! We are aiming to allow players of the game to keep track of different statistics in the game for a better playing experience. Start by pressing the "Add Player" button below, or selecting your game mode in the top right corner!
                     </p>
-
+                    <div style="display: flex; justify-content: flex-end; align-items: center;">
+                        <label style="margin-right: 5px;">Game Mode:</label>
+                        <select class="btn-primary" id="gameMode" enabled onchange="changeGameMode()" style="margin-right: 10px;">
+                            <option value="fixed">Fixed</option>
+                            <option value="progressive">Progressive</option>
+                        </select>
+                        <label>Round:</label>
+                        <label type="text" id="roundTracker" style="margin-right: 5px;">1</label>
+                        <button class="btn-primary" id="nextRound" style="margin-right: 10px;" onclick="nextRound()">Next Round</button>
+                        <button class="btn-primary" id="newGame" style="margin-right: 10px;" onclick="newGame()">New Game</button>
+                    </div>
                     <!-- Insert 6 players here -->
                     <!-- Player1 -->
                    <div class="player-box">

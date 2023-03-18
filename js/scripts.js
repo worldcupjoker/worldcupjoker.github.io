@@ -128,7 +128,24 @@ function displayText() {
         // var currentTroops = parseInt(document.getElementById(playerTroopsList[i]).value); // not necessary for the game.
         // if (isNaN(currentTroops) || currentTroops == 0) totalReinforcements = 0;
         document.getElementById(playerReinforcementsList[i]).textContent = totalReinforcements;
+        setColors(playerReinforcementsList[i]);
         playerReinforcements[i] = totalReinforcements;
+    }
+}
+
+function setColors(reinforcements) {
+    var textLabel = document.getElementById(reinforcements);
+    var number = parseInt(textLabel.textContent);
+    if (number < 5) {
+        textLabel.style.color = "black";
+    } else if (number < 7) {
+        textLabel.style.color = "green";
+    } else if (number < 10) {
+        textLabel.style.color = "blue";
+    } else if (number < 13) {
+        textLabel.style.color = "purple";
+    } else {
+        textLabel.style.color = "yellow";
     }
 }
 
