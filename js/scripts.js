@@ -293,7 +293,7 @@ function nextRound() {
 }
 
 function newGame() {
-    roundNumber = 0;
+    roundNumber = 1;
     tradeInTimes = 0;
     document.getElementById("roundTracker").textContent = roundNumber;
     
