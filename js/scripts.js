@@ -1,6 +1,7 @@
 /*!
+* Copyright 2013-2024 Ted Zhan Matt Chan
+* Some of the source code are from those links below.
 * Start Bootstrap - Simple Sidebar v6.0.5 (https://startbootstrap.com/template/simple-sidebar)
-* Copyright 2013-2022 Start Bootstrap
 * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-simple-sidebar/blob/master/LICENSE)
 */
 // 
@@ -22,101 +23,130 @@ window.addEventListener('DOMContentLoaded', event => {
             localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
         });
     }
-
-    for (var i = 0; i < tradeInList.length; i++) {
-        lockTradeIn(tradeInList[i], i + 1);
-    }
 });
 
-// Track trade in times
 var tradeInTimes = 0;
+var roundNumber = 1;
+
+var tradeInList = ["player1TradeIn", "player2TradeIn", "player3TradeIn", "player4TradeIn", "player5TradeIn", "player6TradeIn"]; // Matching cards box
+var tradeInCheck = [false, false, false, false, false, false];
+var playerTradeInTroops = [0, 0, 0, 0, 0, 0];
+var playerTroopsList = ["player1Troops", "player2Troops", "player3Troops", "player4Troops", "player5Troops", "player6Troops"];
+var playerContinentList = ["player1Continents", "player2Continents", "player3Continents", "player4Continents", "player5Continents", "player6Continents"];
+var playerTerritoryList = ["player1Territory", "player2Territory", "player3Territory", "player4Territory", "player5Territory", "player6Territory"];
+var playerReinforcementsList = ["player1Reinforcements", "player2Reinforcements", "player3Reinforcements", "player4Reinforcements", "player5Reinforcements", "player6Reinforcements"];
+var playerReinforcements = [0, 0, 0, 0, 0, 0];
+var playerNameList = ["player1Name", "player2Name", "player3Name", "player4Name", "player5Name", "player6Name"];
 
 // change game mode
 const gameMode = document.getElementById("gameMode");
-const outSelect1 = document.getElementById("player1TradeIn");
-const outSelect2 = document.getElementById("player2TradeIn");
-const outSelect3 = document.getElementById("player3TradeIn");
-const outSelect4 = document.getElementById("player4TradeIn");
-const outSelect5 = document.getElementById("player5TradeIn");
-const outSelect6 = document.getElementById("player6TradeIn");
-var tradeInList = [outSelect1, outSelect2, outSelect3, outSelect4, outSelect5, outSelect6];
-var playerList = [1, 2, 3, 4, 5, 6];
-gameMode.addEventListener("change", function() {
-    changeTradeIn(outSelect1);
-    changeTradeIn(outSelect2);
-    changeTradeIn(outSelect3);
-    changeTradeIn(outSelect4);
-    changeTradeIn(outSelect5);
-    changeTradeIn(outSelect6);
-});
 
-function changeTradeIn(outSelect) {
+function changeGameMode() {
     const selectedOption = gameMode.value;
-    // const outSelect = document.getElementById(tradeInID);
+    for (var i = 0; i < tradeInList.length; i++) {
+        const outSelect = document.getElementById(tradeInList[i]);
     
-    // clear the current selection
-    outSelect.options.length = 0;
+        // clear the current selection
+        outSelect.options.length = 0;
 
-    // Modify options of outSelect based on selectedOption
-    if (selectedOption === "progressive") {
-        var option1 = document.createElement("option");
-        option1.value = 0;
-        option1.text = "Let me rethink.";
-        outSelect.add(option1);
+        // Modify options of outSelect based on selectedOption
+        if (selectedOption === "progressive") {
+            var option1 = document.createElement("option");
+            option1.value = 0;
+            option1.text = "Let me rethink.";
+            outSelect.add(option1);
 
-        var option2 = document.createElement("option");
-        
-        option2.value = 4;
-        option2.text = "+" + option2.value;
-        outSelect.add(option2);
-    } else {
-        var option1 = document.createElement("option");
-        option1.value = 0;
-        option1.text = "Let me rethink.";
-        outSelect.add(option1);
+            var option2 = document.createElement("option");
+            
+            option2.value = 4;
+            option2.text = "+" + option2.value;
 
-        var option2 = document.createElement("option");
-        option2.value = 4;
-        option2.text = "Infantry, +4";
-        outSelect.add(option2);
+            if (tradeInTimes == 0) {
+                option2.value = 4;
+                option2.text = "+" + option2.value;
+            }
+            if (tradeInTimes == 1) {
+                option2.value = 6;
+                option2.text = "+" + option2.value;
+            }
+            if (tradeInTimes == 2) {
+                option2.value = 8;
+                option2.text = "+" + option2.value;
+            }
+            if (tradeInTimes == 3) {
+                option2.value = 10;
+                option2.text = "+" + option2.value;
+            }
+            if (tradeInTimes == 4) {
+                option2.value = 12;
+                option2.text = "+" + option2.value;
+            }
+            if (tradeInTimes >= 5) {
+                option2.value = 5 * (tradeInTimes - 2);
+                option2.text = "+" + option2.value;
+            }
+            outSelect.add(option2);
+        } else {
+            var option1 = document.createElement("option");
+            option1.value = 0;
+            option1.text = "Let me rethink.";
+            outSelect.add(option1);
 
-        var option3 = document.createElement("option");
-        option3.value = 6;
-        option3.text = "Calvary, +6";
-        outSelect.add(option3);
+            var option2 = document.createElement("option");
+            option2.value = 4;
+            option2.text = "Infantry, +4";
+            outSelect.add(option2);
 
-        var option4 = document.createElement("option");
-        option4.value = 8;
-        option4.text = "Artillery, +8";
-        outSelect.add(option4);
+            var option3 = document.createElement("option");
+            option3.value = 6;
+            option3.text = "Calvary, +6";
+            outSelect.add(option3);
 
-        var option4 = document.createElement("option");
-        option4.value = 10;
-        option4.text = "All Three, +10";
-        outSelect.add(option4);
+            var option4 = document.createElement("option");
+            option4.value = 8;
+            option4.text = "Artillery, +8";
+            outSelect.add(option4);
+
+            var option4 = document.createElement("option");
+            option4.value = 10;
+            option4.text = "All Three, +10";
+            outSelect.add(option4);
+        }
     }
 }
 
+function displayText() {
+    for (var i = 0; i < playerReinforcementsList.length; i++) {
+        var currentTerritories = parseInt(document.getElementById(playerTerritoryList[i]).value);
+        var inputText = parseInt(document.getElementById(playerTerritoryList[i]).value);
+        if (isNaN(inputText)) inputText = 0;
+        inputText = getTerritoryBonus(inputText);
+        var totalReinforcements = inputText + getContinentBonus(playerContinentList[i]);
 
-function addToDisplay(value) {
-    document.getElementById('display').value += value;
-}
-    
-function calculate() {
-    var expression = document.getElementById('display').value;
-    var result = eval(expression);
-    document.getElementById('display').value = result;
-}
-    
-function clearDisplay() {
-    document.getElementById('display').value = '';
+        // if a player has no troops or territories, there are no reinforcements for that player.
+        if (isNaN(currentTerritories) || currentTerritories == 0) totalReinforcements = 0;
+        // var currentTroops = parseInt(document.getElementById(playerTroopsList[i]).value); // not necessary for the game.
+        // if (isNaN(currentTroops) || currentTroops == 0) totalReinforcements = 0;
+        document.getElementById(playerReinforcementsList[i]).textContent = totalReinforcements;
+        setColors(playerReinforcementsList[i]);
+        playerReinforcements[i] = totalReinforcements;
+    }
 }
 
-function displayText1() {
-    var inputText = parseInt(document.getElementById("player1Territory").value);
-    if (isNaN(inputText)) inputText = 0;
-    inputText = getTerritoryBonus(inputText);
-    document.getElementById("player1Reinforcements").textContent = inputText + calc1();
+function setColors(reinforcements) {
+    var textLabel = document.getElementById(reinforcements);
+    var number = parseInt(textLabel.textContent);
+    if (number < 5) {
+        textLabel.style.color = "black";
+    } else if (number < 7) {
+        textLabel.style.color = "green";
+    } else if (number < 10) {
+        textLabel.style.color = "blue";
+    } else if (number < 13) {
+        textLabel.style.color = "purple";
+    } else {
+        textLabel.style.color = "yellow";
+    }
 }
 
 function getTerritoryBonus(num) {
@@ -124,14 +154,18 @@ function getTerritoryBonus(num) {
     return Math.floor(num / 3);
 }
 
-function calc1() {
+function getContinentBonus(playerContinents) {
+    const checkboxes = document.querySelectorAll("input[name=" + playerContinents + "]");
+
     var result = 0;
-    var box1 = document.getElementById("player1Aus");
-    var box2 = document.getElementById("player1SouthAmerica");
-    var box3 = document.getElementById("player1Africa");
-    var box4 = document.getElementById("player1Europe");
-    var box5 = document.getElementById("player1NorthAmerica");
-    var box6 = document.getElementById("player1Asia");
+    var box1 = checkboxes[0];
+    var box2 = checkboxes[1];
+    var box3 = checkboxes[2];
+    var box4 = checkboxes[3];
+    var box5 = checkboxes[4];
+    var box6 = checkboxes[5];
+
+    
     if (box1.checked) {
         result += parseInt(box1.value);
     }
@@ -153,78 +187,139 @@ function calc1() {
     return result;
 }
 
-// won't allow trade ins once it is selected
-function lockTradeIn(outSelect, player) {
-    outSelect.addEventListener("change", function() {
+// won't allow trade-ins once it is selected
+function lockTradeIn() {
+    for (var i = 0; i < tradeInList.length; i++) {
+        var outSelect = document.getElementById(tradeInList[i]);
         const selectedOption = outSelect.value;
         if (gameMode.value === "progressive") {
             if (selectedOption != 0) {
-                tradeInTimes += 1;
-                refreshProgressiveCards(playerList, player);
+                if (!tradeInCheck[i]) {
+                    tradeInTimes += 1;
+                    tradeInCheck[i] = true;
+                    playerTradeInTroops[i] = parseInt(selectedOption);
+                    updatePlayerTroops(i, tradeInCheck[i]);
+                }
                 outSelect.options[1].disabled = true;
             } else {
-                tradeInTimes -= 1;
-                playerList.push(player);
-                refreshProgressiveCards(playerList);
+                if (tradeInCheck[i]) {
+                    tradeInTimes -= 1;
+                    tradeInCheck[i] = false;
+                    updatePlayerTroops(i, tradeInCheck[i]);
+                    playerTradeInTroops[i] = 0;
+                }
                 outSelect.options[1].disabled = false;
             }
         } else {
             if (selectedOption != 0) {
+                if (!tradeInCheck[i]) {
+                    tradeInCheck[i] = true;
+                    playerTradeInTroops[i] = parseInt(selectedOption);
+                    updatePlayerTroops(i, tradeInCheck[i]);
+                }
                 outSelect.options[1].disabled = true;
                 outSelect.options[2].disabled = true;
                 outSelect.options[3].disabled = true;
                 outSelect.options[4].disabled = true;
             } else {
+                if (tradeInCheck[i]) {
+                    tradeInCheck[i] = false;
+                    updatePlayerTroops(i, tradeInCheck[i]);
+                    playerTradeInTroops[i] = 0;
+                }
                 outSelect.options[1].disabled = false;
                 outSelect.options[2].disabled = false;
                 outSelect.options[3].disabled = false;
                 outSelect.options[4].disabled = false;
             }
         }
-    });
+    }
+    refreshProgressiveTradeIn();
 }
 
-function refreshProgressiveCards(aList, player) {
-    var index = aList.indexOf(player);
+function updatePlayerTroops(i, tradeInStatus) {
+    var inputText = parseInt(document.getElementById(playerTroopsList[i]).value);
+    if (isNaN(inputText)) inputText = 0;
+    if (tradeInStatus) {
+        document.getElementById(playerTroopsList[i]).value = inputText + playerTradeInTroops[i];
+    } else {
+        document.getElementById(playerTroopsList[i]).value = inputText - playerTradeInTroops[i];
+    }
+}
 
-    for (var i = 0; i < aList.length; i++) {
-        if (aList[i] != player) {
-            alert(aList);
-            refreshProgressiveTradeIn(tradeInList[aList[i] - 1]);
+function refreshProgressiveTradeIn() {
+    if (gameMode.value !== "progressive") return;
+    for (var i = 0; i < tradeInCheck.length; i++) {
+        var outSelect = document.getElementById(tradeInList[i]);
+        if (!tradeInCheck[i]) {
+            // need to redo at your turn. otherwise there is a bug.
+            if (tradeInTimes == 0) {
+                outSelect.options[1].value = 4;
+                outSelect.options[1].text = "+4";
+            }
+            if (tradeInTimes == 1) {
+                outSelect.options[1].value = 6;
+                outSelect.options[1].text = "+6";
+            }
+            if (tradeInTimes == 2) {
+                outSelect.options[1].value = 8;
+                outSelect.options[1].text = "+8";
+            }
+            if (tradeInTimes == 3) {
+                outSelect.options[1].value = 10;
+                outSelect.options[1].text = "+10";
+            }
+            if (tradeInTimes == 4) {
+                outSelect.options[1].value = 12;
+                outSelect.options[1].text = "+12";
+            }
+            if (tradeInTimes >= 5) {
+                outSelect.options[1].value = 5 * (tradeInTimes - 2);
+                outSelect.options[1].text = "+" + outSelect.options[1].value;
+            }
         }
     }
-
-    // update the list here.
-    if (index !== -1) {
-        aList.splice(index, 1);
-    }
-
 }
 
-function refreshProgressiveTradeIn(outSelect) {
-    // need to redo at your turn. otherwise there is a bug.
-    if (tradeInTimes == 0) {
-        outSelect.options[1].value = 4;
-        outSelect.options[1].text = "+4";
+function nextRound() {
+    for (var i = 0; i < playerTroopsList.length; i++) {
+        document.getElementById(playerTroopsList[i]).value = parseInt(playerReinforcements[i]) + parseInt(document.getElementById(playerTroopsList[i]).value);
     }
-    if (tradeInTimes == 1) {
-        outSelect.options[1].value = 6;
-        outSelect.options[1].text = "+6";
+    roundNumber++;
+    document.getElementById("roundTracker").textContent = roundNumber;
+    playerTradeInTroops = [0, 0, 0, 0, 0, 0];
+    tradeInCheck = [false, false, false, false, false, false];
+    changeGameMode();
+}
+
+function newGame() {
+    roundNumber = 1;
+    tradeInTimes = 0;
+    document.getElementById("roundTracker").textContent = roundNumber;
+    
+    tradeInCheck = [false, false, false, false, false, false];
+    playerTradeInTroops = [0, 0, 0, 0, 0, 0];
+
+    //clear name boxes, troop, territories, continents
+    for (var i = 0; i < playerTroopsList.length; i++) {
+        document.getElementById(playerTroopsList[i]).value = NaN;
+        uncheckContinents(playerContinentList[i]);
+        document.getElementById(playerTerritoryList[i]).value = NaN;
+        document.getElementById(playerNameList[i]).value = "";
     }
-    if (tradeInTimes == 2) {
-        outSelect.options[1].value = 8;
-        outSelect.options[1].text = "+8";
-    }
-    if (tradeInTimes == 3) {
-        outSelect.options[1].value = 10;
-        outSelect.options[1].text = "+10";
-    }
-    if (tradeInTimes == 4) {
-        outSelect.options[1].value = 12;
-        outSelect.options[1].text = "+12";
-    }
-    if (tradeInTimes >= 5) {
-        outSelect.options[1].value = 5 * (tradeInTimes - 2);
-        outSelect.options[1].text = "+" + outSelect.options[1].value;
-    }
+
+    playerReinforcements = [0, 0, 0, 0, 0, 0];
+    displayText(); // reset reinforcement list
+    changeGameMode(); // Reset trade in list
+}
+
+function uncheckContinents(playerContinents) {
+    const checkboxes = document.querySelectorAll("input[name=" + playerContinents + "]");
+
+    checkboxes[0].checked = false;
+    checkboxes[1].checked = false;
+    checkboxes[2].checked = false;
+    checkboxes[3].checked = false;
+    checkboxes[4].checked = false;
+    checkboxes[5].checked = false;
 }

@@ -7,14 +7,12 @@
         <meta name="author" content="" />
         <title>WorldCupJoker's Game Hub</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/hourglass.png" />
+        <link rel="icon" type="image/png" href="assets/hourglass.png" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body>
         <div class="d-flex" id="wrapper">
-            <!-- Sidebar>
-            does not exist anymore :) -->
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
                 <!-- Top navigation-->
@@ -54,18 +52,21 @@
                 </nav>
                 <!-- Page content-->
                 <div class="container-fluid">
-                    <button class="btn-primary" id="nextRound">Next Round</button>
-		            <button class="btn-primary" id="reset">Reset</button>
-                    <label for="gameMode">Game Mode:</label>
-                    <select class="btn-primary" id="gameMode" enabled>
-                        <option value="fixed">Fixed</option>
-                        <option value="progressive">Progressive</option>
-                    </select>
                     <h1 class="mt-4">Risk Online Tracker</h1>
                     <p>
-                        Here is the Risk online tracker! We are aiming to allow players of the game to keep track of different statistics in the game for a better playing experience. Start by pressing the "Add Player" button below, or selecting your game mode in the top right corner!
+                        Here is the Risk online tracker! We are aiming to allow players of the game to keep track of different statistics in the game for a better playing experience. Start by selecting your game mode in the top right corner!
                     </p>
-
+                    <div style="display: flex; justify-content: flex-end; align-items: center;">
+                        <label style="margin-right: 5px;">Game Mode:</label>
+                        <select class="btn-primary" id="gameMode" enabled onchange="changeGameMode()" style="margin-right: 10px;">
+                            <option value="fixed">Fixed</option>
+                            <option value="progressive">Progressive</option>
+                        </select>
+                        <label>Round:</label>
+                        <label type="text" id="roundTracker" style="margin-right: 5px;">1</label>
+                        <button class="btn-primary" id="nextRound" style="margin-right: 10px;" onclick="nextRound()">Next Round</button>
+                        <button class="btn-primary" id="newGame" style="margin-right: 10px;" onclick="newGame()">New Game</button>
+                    </div>
                     <!-- Insert 6 players here -->
                     <!-- Player1 -->
                    <div class="player-box">
@@ -80,11 +81,11 @@
                         </div>
                         <div class="text-box">
                             <label>Territory:</label>
-                            <input type="number" id="player1Territory" enabled oninput="displayText1()">
+                            <input type="number" id="player1Territory" enabled oninput="displayText()">
                         </div>
                         <div class="text-box">
                             <label>Matching Cards:</label>
-                            <select id="player1TradeIn" enabled>
+                            <select id="player1TradeIn" enabled onchange="lockTradeIn()">
                                 <option value=0>Let me rethink.</option>
                                 <option value=4>Infantry, +4</option>
                                 <option value=6>Calvary, +6</option>
@@ -94,17 +95,17 @@
                         </div>
                         <div class="text-box">
                             <label>Continents:</label>
-                            <input type="checkbox" id="player1Aus" value=2 oninput="displayText1()">
+                            <input type="checkbox" id="player1Aus" name="player1Continents" value=2 oninput="displayText()">
                             <label>Australia: +2</label>
-                            <input type="checkbox" id="player1SouthAmerica" value=2 oninput="displayText1()">
+                            <input type="checkbox" id="player1SouthAmerica" name="player1Continents" value=2 oninput="displayText()">
                             <label>South America: +2</label>
-                            <input type="checkbox" id="player1Africa" value=3 oninput="displayText1()">
+                            <input type="checkbox" id="player1Africa" name="player1Continents" value=3 oninput="displayText()">
                             <label>Africa: +3</label>
-                            <input type="checkbox" id="player1Europe" value=5 oninput="displayText1()">
+                            <input type="checkbox" id="player1Europe" name="player1Continents" value=5 oninput="displayText()">
                             <label>Europe: +5</label>
-                            <input type="checkbox" id="player1NorthAmerica" value=5 oninput="displayText1()">
+                            <input type="checkbox" id="player1NorthAmerica" name="player1Continents" value=5 oninput="displayText()">
                             <label>North America: +5</label>
-                            <input type="checkbox" id="player1Asia" value=7 oninput="displayText1()">
+                            <input type="checkbox" id="player1Asia" name="player1Continents" value=7 oninput="displayText()">
                             <label>Asia: +7</label>
                         </div>
                         <div class="text-box">
@@ -126,11 +127,11 @@
                         </div>
                         <div class="text-box">
                             <label>Territory:</label>
-                            <input type="number" id="player2Territory" enabled oninput="displayText2()">
+                            <input type="number" id="player2Territory" enabled oninput="displayText()">
                         </div>
                         <div class="text-box">
                             <label>Matching Cards:</label>
-                            <select id="player2TradeIn" enabled>
+                            <select id="player2TradeIn" enabled onchange="lockTradeIn()">
                                 <option value=0>Let me rethink.</option>
                                 <option value=4>Infantry, +4</option>
                                 <option value=6>Calvary, +6</option>
@@ -140,17 +141,17 @@
                         </div>
                         <div class="text-box">
                             <label>Continents:</label>
-                            <input type="checkbox" id="player2Aus" value=2 oninput="displayText2()">
+                            <input type="checkbox" id="player2Aus" name="player2Continents" value=2 oninput="displayText()">
                             <label>Australia: +2</label>
-                            <input type="checkbox" id="player2SouthAmerica" value=2 oninput="displayText2()">
+                            <input type="checkbox" id="player2SouthAmerica" name="player2Continents" value=2 oninput="displayText()">
                             <label>South America: +2</label>
-                            <input type="checkbox" id="player2Africa" value=3 oninput="displayText2()">
+                            <input type="checkbox" id="player2Africa" name="player2Continents" value=3 oninput="displayText()">
                             <label>Africa: +3</label>
-                            <input type="checkbox" id="player2Europe" value=5 oninput="displayText2()">
+                            <input type="checkbox" id="player2Europe" name="player2Continents" value=5 oninput="displayText()">
                             <label>Europe: +5</label>
-                            <input type="checkbox" id="player2NorthAmerica" value=5 oninput="displayText2()">
+                            <input type="checkbox" id="player2NorthAmerica" name="player2Continents" value=5 oninput="displayText()">
                             <label>North America: +5</label>
-                            <input type="checkbox" id="player2Asia" value=7 oninput="displayText2()">
+                            <input type="checkbox" id="player2Asia" name="player2Continents" value=7 oninput="displayText()">
                             <label>Asia: +7</label>
                         </div>
                         <div class="text-box">
@@ -171,11 +172,11 @@
                         </div>
                         <div class="text-box">
                             <label>Territory:</label>
-                            <input type="number" id="player3Territory" enabled oninput="displayText3()">
+                            <input type="number" id="player3Territory" enabled oninput="displayText()">
                         </div>
                         <div class="text-box">
                             <label>Matching Cards:</label>
-                            <select id="player3TradeIn" enabled>
+                            <select id="player3TradeIn" enabled onchange="lockTradeIn()">
                                 <option value=0>Let me rethink.</option>
                                 <option value=4>Infantry, +4</option>
                                 <option value=6>Calvary, +6</option>
@@ -185,17 +186,17 @@
                         </div>
                         <div class="text-box">
                             <label>Continents:</label>
-                            <input type="checkbox" id="player3Aus" value=2 oninput="displayText3()">
+                            <input type="checkbox" id="player3Aus" name="player3Continents" value=2 oninput="displayText()">
                             <label>Australia: +2</label>
-                            <input type="checkbox" id="player3SouthAmerica" value=2 oninput="displayText3()">
+                            <input type="checkbox" id="player3SouthAmerica" name="player3Continents" value=2 oninput="displayText()">
                             <label>South America: +2</label>
-                            <input type="checkbox" id="player3Africa" value=3 oninput="displayText3()">
+                            <input type="checkbox" id="player3Africa" name="player3Continents" value=3 oninput="displayText()">
                             <label>Africa: +3</label>
-                            <input type="checkbox" id="player3Europe" value=5 oninput="displayText3()">
+                            <input type="checkbox" id="player3Europe" name="player3Continents" value=5 oninput="displayText()">
                             <label>Europe: +5</label>
-                            <input type="checkbox" id="player3NorthAmerica" value=5 oninput="displayText3()">
+                            <input type="checkbox" id="player3NorthAmerica" name="player3Continents" value=5 oninput="displayText()">
                             <label>North America: +5</label>
-                            <input type="checkbox" id="player3Asia" value=7 oninput="displayText3()">
+                            <input type="checkbox" id="player3Asia" name="player3Continents" value=7 oninput="displayText()">
                             <label>Asia: +7</label>
                         </div>
                         <div class="text-box">
@@ -216,11 +217,11 @@
                         </div>
                         <div class="text-box">
                             <label>Territory:</label>
-                            <input type="number" id="player4Territory" enabled oninput="displayText4()">
+                            <input type="number" id="player4Territory" enabled oninput="displayText()">
                         </div>
                         <div class="text-box">
                             <label>Matching Cards:</label>
-                            <select id="player4TradeIn" enabled>
+                            <select id="player4TradeIn" enabled onchange="lockTradeIn()">
                                 <option value=0>Let me rethink.</option>
                                 <option value=4>Infantry, +4</option>
                                 <option value=6>Calvary, +6</option>
@@ -230,17 +231,17 @@
                         </div>
                         <div class="text-box">
                             <label>Continents:</label>
-                            <input type="checkbox" id="player4Aus" value=2 oninput="displayText4()">
+                            <input type="checkbox" id="player4Aus" name="player4Continents" value=2 oninput="displayText()">
                             <label>Australia: +2</label>
-                            <input type="checkbox" id="player4SouthAmerica" value=2 oninput="displayText4()">
+                            <input type="checkbox" id="player4SouthAmerica" name="player4Continents" value=2 oninput="displayText()">
                             <label>South America: +2</label>
-                            <input type="checkbox" id="player4Africa" value=3 oninput="displayText4()">
+                            <input type="checkbox" id="player4Africa" name="player4Continents" value=3 oninput="displayText()">
                             <label>Africa: +3</label>
-                            <input type="checkbox" id="player4Europe" value=5 oninput="displayText4()">
+                            <input type="checkbox" id="player4Europe" name="player4Continents" value=5 oninput="displayText()">
                             <label>Europe: +5</label>
-                            <input type="checkbox" id="player4NorthAmerica" value=5 oninput="displayText4()">
+                            <input type="checkbox" id="player4NorthAmerica" name="player4Continents" value=5 oninput="displayText()">
                             <label>North America: +5</label>
-                            <input type="checkbox" id="player4Asia" value=7 oninput="displayText4()">
+                            <input type="checkbox" id="player4Asia" name="player4Continents" value=7 oninput="displayText()">
                             <label>Asia: +7</label>
                         </div>
                         <div class="text-box">
@@ -261,11 +262,11 @@
                         </div>
                         <div class="text-box">
                             <label>Territory:</label>
-                            <input type="number" id="player5Territory" enabled oninput="displayText5()">
+                            <input type="number" id="player5Territory" enabled oninput="displayText()">
                         </div>
                         <div class="text-box">
                             <label>Matching Cards:</label>
-                            <select id="player5TradeIn" enabled>
+                            <select id="player5TradeIn" enabled onchange="lockTradeIn()">
                                 <option value=0>Let me rethink.</option>
                                 <option value=4>Infantry, +4</option>
                                 <option value=6>Calvary, +6</option>
@@ -275,17 +276,17 @@
                         </div>
                         <div class="text-box">
                             <label>Continents:</label>
-                            <input type="checkbox" id="player5Aus" value=2 oninput="displayText5()">
+                            <input type="checkbox" id="player5Aus" name="player5Continents" value=2 oninput="displayText()">
                             <label>Australia: +2</label>
-                            <input type="checkbox" id="player5SouthAmerica" value=2 oninput="displayText5()">
+                            <input type="checkbox" id="player5SouthAmerica" name="player5Continents" value=2 oninput="displayText()">
                             <label>South America: +2</label>
-                            <input type="checkbox" id="player5Africa" value=3 oninput="displayText5()">
+                            <input type="checkbox" id="player5Africa" name="player5Continents" value=3 oninput="displayText()">
                             <label>Africa: +3</label>
-                            <input type="checkbox" id="player5Europe" value=5 oninput="displayText5()">
+                            <input type="checkbox" id="player5Europe" name="player5Continents" value=5 oninput="displayText()">
                             <label>Europe: +5</label>
-                            <input type="checkbox" id="player5NorthAmerica" value=5 oninput="displayText5()">
+                            <input type="checkbox" id="player5NorthAmerica" name="player5Continents" value=5 oninput="displayText()">
                             <label>North America: +5</label>
-                            <input type="checkbox" id="player5Asia" value=7 oninput="displayText5()">
+                            <input type="checkbox" id="player5Asia" name="player5Continents" value=7 oninput="displayText()">
                             <label>Asia: +7</label>
                         </div>
                         <div class="text-box">
@@ -306,11 +307,11 @@
                         </div>
                         <div class="text-box">
                             <label>Territory:</label>
-                            <input type="number" id="player6Territory" enabled oninput="displayText6()">
+                            <input type="number" id="player6Territory" enabled oninput="displayText()">
                         </div>
                         <div class="text-box">
                             <label>Matching Cards:</label>
-                            <select id="player6TradeIn" enabled>
+                            <select id="player6TradeIn" enabled onchange="lockTradeIn()">
                                 <option value=0>Let me rethink.</option>
                                 <option value=4>Infantry, +4</option>
                                 <option value=6>Calvary, +6</option>
@@ -320,17 +321,17 @@
                         </div>
                         <div class="text-box">
                             <label>Continents:</label>
-                            <input type="checkbox" id="player6Aus" value=2 oninput="displayText6()">
+                            <input type="checkbox" id="player6Aus" name="player6Continents" value=2 oninput="displayText()">
                             <label>Australia: +2</label>
-                            <input type="checkbox" id="player6SouthAmerica" value=2 oninput="displayText6()">
+                            <input type="checkbox" id="player6SouthAmerica" name="player6Continents" value=2 oninput="displayText()">
                             <label>South America: +2</label>
-                            <input type="checkbox" id="player6Africa" value=3 oninput="displayText6()">
+                            <input type="checkbox" id="player6Africa" name="player6Continents" value=3 oninput="displayText()">
                             <label>Africa: +3</label>
-                            <input type="checkbox" id="player6Europe" value=5 oninput="displayText6()">
+                            <input type="checkbox" id="player6Europe" name="player6Continents" value=5 oninput="displayText()">
                             <label>Europe: +5</label>
-                            <input type="checkbox" id="player6NorthAmerica" value=5 oninput="displayText6()">
+                            <input type="checkbox" id="player6NorthAmerica" name="player6Continents" value=5 oninput="displayText()">
                             <label>North America: +5</label>
-                            <input type="checkbox" id="player6Asia" value=7 oninput="displayText6()">
+                            <input type="checkbox" id="player6Asia" name="player6Continents" value=7 oninput="displayText()">
                             <label>Asia: +7</label>
                         </div>
                         <div class="text-box">
