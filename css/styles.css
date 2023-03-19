@@ -108,6 +108,19 @@
 	margin-left: 10px;
 }
 
+#gameMode {
+	position: absolute;
+	top: 100px;
+	right: 205px;
+	margin-right: 10px; 
+}
+
+label[for="gameMode"] {
+	position: absolute;
+	top: 100px;
+	right: 315px;
+	margin-right: 10px;
+}
 @media (prefers-reduced-motion: no-preference) {
   :root {
     scroll-behavior: smooth;

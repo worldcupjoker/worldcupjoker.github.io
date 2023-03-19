@@ -13,29 +13,32 @@
     </head>
     <body>
         <div class="d-flex" id="wrapper">
-            <!-- Sidebar-->
-            <div class="border-end bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading border-bottom bg-light">O-Newbie-Won</div>
-                <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">About</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Risk Assistant</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Overview</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
-                </div>
-            </div>
+            <!-- Sidebar>
+            does not exist anymore :) -->
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
                 <!-- Top navigation-->
                 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                     <div class="container-fluid">
-                        <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button>
+                        <!--button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button-->
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                                 <li class="nav-item active"><a class="nav-link" href="#!">Home</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
+                                <!--li class="nav-item"><a class="nav-link" href="#!">Link</a></li-->
+				<li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdown1" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Link</a>                 
+				    <!--div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown1"-->
+				    <ul class="dropdown-menu">
+					<li class="dropdown-submenu">
+			<!--initial nested dropdown for Ted information-->
+					<a class="nav-link dropdown-toggle" id="navbarDropdown1" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ted</a>	
+					<a class="nav-link dropdown-toggle" id="navbarDropdown2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Matt</a>
+			           	</li>
+			            </ul>
+
+                              <!--initial nested dropdown for Matt info-->
+                                </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Game mode</a>
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -53,7 +56,7 @@
                 <div class="container-fluid">
                     <button class="btn-primary" id="nextRound">Next Round</button>
 		            <button class="btn-primary" id="reset">Reset</button>
-                    <label>Game Mode:</label>
+                    <label for="gameMode">Game Mode:</label>
                     <select class="btn-primary" id="gameMode" enabled>
                         <option value="fixed">Fixed</option>
                         <option value="progressive">Progressive</option>
