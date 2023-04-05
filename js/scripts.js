@@ -1,5 +1,5 @@
 /*!
-* Copyright 2013-2024 Ted Zhan Matt Chan
+* Copyright 2013-2024, Ted Zhan, Matt Chan
 * Some of the source code are from those links below.
 * Start Bootstrap - Simple Sidebar v6.0.5 (https://startbootstrap.com/template/simple-sidebar)
 * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-simple-sidebar/blob/master/LICENSE)
@@ -322,4 +322,92 @@ function uncheckContinents(playerContinents) {
     checkboxes[3].checked = false;
     checkboxes[4].checked = false;
     checkboxes[5].checked = false;
+}
+
+function rollDice() {
+    return Math.floor(Math.random() * (6 - 1 + 1) ) + 1;
+}
+
+function compareNumbersDescending(a, b) {
+    return b - a;
+}
+
+function blitz() {
+    var attacker = 16;
+    var defender = 160;
+    var result = blitzRoll(attacker, defender);
+    alert(result);
+}
+
+function blitzRoll(attacker, defender) {
+    while(true) {
+        if (attacker == 1) return [attacker, defender];
+        if (defender == 0) return [attacker, defender];
+        if (attacker >= 4 && defender >= 2) {
+            var attackerRolls = [rollDice(), rollDice(), rollDice()];
+            var defenderRolls = [rollDice(), rollDice()];
+            attackerRolls.sort(compareNumbersDescending);
+            defenderRolls.sort(compareNumbersDescending);
+            if (attackerRolls[0] > defenderRolls[0]) {
+                defender--;
+            } else {
+                attacker--;
+            }
+            if (attackerRolls[1] > defenderRolls[1]) {
+                defender--;
+            } else {
+                attacker--;
+            }
+        } else if (attacker == 3 && defender >= 2) {
+            var attackerRolls = [rollDice(), rollDice()];
+            var defenderRolls = [rollDice(), rollDice()];
+            attackerRolls.sort(compareNumbersDescending);
+            defenderRolls.sort(compareNumbersDescending);
+            if (attackerRolls[0] > defenderRolls[0]) {
+                defender--;
+            } else {
+                attacker--;
+            }
+            if (attackerRolls[1] > defenderRolls[1]) {
+                defender--;
+            } else {
+                attacker--;
+            }
+        } else if (attacker == 2 && defender >= 2) {
+            var attackerRolls = [rollDice()];
+            var defenderRolls = [rollDice(), rollDice()];
+            defenderRolls.sort(compareNumbersDescending);
+            if (attackerRolls[0] > defenderRolls[0]) {
+                defender--;
+            } else {
+                attacker--;
+            }
+        } else if (attacker >= 4 && defender == 1) {
+            var attackerRolls = [rollDice(), rollDice(), rollDice()];
+            var defenderRolls = [rollDice()];
+            attackerRolls.sort(compareNumbersDescending);
+            if (attackerRolls[0] > defenderRolls[0]) {
+                defender--;
+            } else {
+                attacker--;
+            }
+        } else if (attacker == 3 && defender == 1) {
+            var attackerRolls = [rollDice(), rollDice()];
+            var defenderRolls = [rollDice()];
+            attackerRolls.sort(compareNumbersDescending);
+            if (attackerRolls[0] > defenderRolls[0]) {
+                defender--;
+            } else {
+                attacker--;
+            }
+        } else if (attacker == 2 && defender == 1) {
+            var attackerRolls = [rollDice()];
+            var defenderRolls = [rollDice()];
+            if (attackerRolls[0] > defenderRolls[0]) {
+                defender--;
+            } else {
+                attacker--;
+            }
+        }
+    }
 }
