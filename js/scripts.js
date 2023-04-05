@@ -57,9 +57,6 @@ function changeGameMode() {
             outSelect.add(option1);
 
             var option2 = document.createElement("option");
-            
-            option2.value = 4;
-            option2.text = "+" + option2.value;
 
             if (tradeInTimes == 0) {
                 option2.value = 4;
@@ -290,6 +287,7 @@ function nextRound() {
     playerTradeInTroops = [0, 0, 0, 0, 0, 0];
     tradeInCheck = [false, false, false, false, false, false];
     changeGameMode();
+    resetBlitzPlayers();
 }
 
 function newGame() {
@@ -300,7 +298,7 @@ function newGame() {
     tradeInCheck = [false, false, false, false, false, false];
     playerTradeInTroops = [0, 0, 0, 0, 0, 0];
 
-    //clear name boxes, troop, territories, continents
+    // clear name boxes, troop, territories, continents
     for (var i = 0; i < playerTroopsList.length; i++) {
         document.getElementById(playerTroopsList[i]).value = NaN;
         uncheckContinents(playerContinentList[i]);
@@ -311,6 +309,9 @@ function newGame() {
     playerReinforcements = [0, 0, 0, 0, 0, 0];
     displayText(); // reset reinforcement list
     changeGameMode(); // Reset trade in list
+
+    // clear blitz area
+    resetBlitzPlayers();
 }
 
 function uncheckContinents(playerContinents) {
@@ -332,11 +333,23 @@ function compareNumbersDescending(a, b) {
     return b - a;
 }
 
+function resetBlitzPlayers() {
+    document.getElementById("attacker").selectedIndex = 0;
+    document.getElementById("defender").selectedIndex = 0;
+    document.getElementById("attackerTroops").value = NaN;
+    document.getElementById("defenderTroops").value = NaN;
+    document.getElementById("blitz").disabled = true;
+}
+
 function blitz() {
-    var attacker = 16;
-    var defender = 160;
+    var attacker = parseInt(document.getElementById("attackerTroops").value);
+    if (isNaN(attacker)) return;
+    if (attacker == 0) return;
+    var defender = parseInt(document.getElementById("defenderTroops").value);
+    if (isNaN(defender)) return;
     var result = blitzRoll(attacker, defender);
-    alert(result);
+    document.getElementById("attackerTroops").value = result[0];
+    document.getElementById("defenderTroops").value = result[1];
 }
 
 function blitzRoll(attacker, defender) {
@@ -409,5 +422,16 @@ function blitzRoll(attacker, defender) {
                 attacker--;
             }
         }
+    }
+}
+
+function lockBlitz() {
+    var attacker = document.getElementById("attacker").selectedIndex - 1;
+    var defender = document.getElementById("defender").selectedIndex - 1;
+    var blitzButton = document.getElementById("blitz");
+    if (attacker != -1 && defender != -1 && attacker != defender) {
+        blitzButton.disabled = false;
+    } else {
+        blitzButton.disabled = true;
     }
 }
