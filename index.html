@@ -57,8 +57,30 @@
                             <option value="progressive">Progressive</option>
                         </select>
                         <label>Attacker:</label>
+                        <select id="attacker" enabled onchange="lockBlitz()">
+                            <option></option>
+                            <option>Player 1</option>
+                            <option>Player 2</option>
+                            <option>Player 3</option>
+                            <option>Player 4</option>
+                            <option>Player 5</option>
+                            <option>Player 6</option>
+                        </select>
+                        <label>Troops:</label>
+                        <input type="number" id="attackerTroops" enabled size="5" style="margin-right: 5px;">
                         <label>Defender:</label>
-                        <button class="btn-primary" id="blitz" style="margin-right: 10px;" onclick="blitz()">Blitz</button>
+                        <select id="defender" enabled onchange="lockBlitz()">
+                            <option></option>
+                            <option>Player 1</option>
+                            <option>Player 2</option>
+                            <option>Player 3</option>
+                            <option>Player 4</option>
+                            <option>Player 5</option>
+                            <option>Player 6</option>
+                        </select>
+                        <label>Troops:</label>
+                        <input type="number" id="defenderTroops" enabled size="5" style="margin-right: 5px;">
+                        <button class="btn-primary" id="blitz" style="margin-right: 10px;" onclick="blitz()" disabled>Blitz</button>
                         <label>Round:</label>
                         <label type="text" id="roundTracker" style="margin-right: 5px;">1</label>
                         <button class="btn-primary" id="nextRound" style="margin-right: 10px;" onclick="nextRound()">Next Round</button>
