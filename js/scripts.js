@@ -1,5 +1,5 @@
 /*!
-* Copyright 2013-2024, Ted Zhan, Matt Chan
+* Copyright 2023-2024, Ted Zhan, Matt Chan
 * Some of the source code are from those links below.
 * Start Bootstrap - Simple Sidebar v6.0.5 (https://startbootstrap.com/template/simple-sidebar)
 * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-simple-sidebar/blob/master/LICENSE)
