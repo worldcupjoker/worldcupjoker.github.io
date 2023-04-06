@@ -350,6 +350,12 @@ function blitz() {
     var result = blitzRoll(attacker, defender);
     document.getElementById("attackerTroops").value = result[0];
     document.getElementById("defenderTroops").value = result[1];
+
+    // update player troops
+    var attackerID = document.getElementById("attacker").selectedIndex - 1;
+    var defenderID = document.getElementById("defender").selectedIndex - 1;
+    document.getElementById(playerTroopsList[attackerID]).value -= attacker - result[0];
+    document.getElementById(playerTroopsList[defenderID]).value -= defender - result[1];
 }
 
 function blitzRoll(attacker, defender) {
